@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\RestClient;
+namespace App\Tests\RestTestCase;
 
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,14 +39,15 @@ class Then
         return $this;
     }
 
-    public function body(string $key, string $value): self
+    public function body(string $key, callable $assert): self
     {
         $body = json_decode($this->response->getContent(), true);
 
-        Assert::assertSame(
-            $value,
-            $body[$key],
-        );
+        if (isset($body[$key])) {
+            $assert($body[$key]);
+        } else {
+            Assert::fail("Json body does not contain any '$key' key.");
+        }
 
         return $this;
     }

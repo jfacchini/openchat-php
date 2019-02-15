@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests\RestClient;
+namespace App\Tests\RestTestCase;
 
+use App\Tests\RestTestCase\When;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class Given

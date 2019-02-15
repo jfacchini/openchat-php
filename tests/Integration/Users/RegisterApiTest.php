@@ -2,7 +2,7 @@
 
 namespace App\Tests\Integration\Users;
 
-use App\Tests\RestClient\ApiTestCase;
+use App\Tests\RestTestCase\ApiTestCase;
 
 class RegisterApiTest extends ApiTestCase
 {
@@ -11,23 +11,23 @@ class RegisterApiTest extends ApiTestCase
      */
     public function it_register_a_new_user(): void
     {
-        $username = 'Username';
-        $password = 'Password';
-
         self::given()
             ->body(<<<JSON
             {
-              "username": "$username",
-              "password": "$password"
+              "username": "Username",
+              "password": "Password",
+              "about": "About Username"
             }
-            JSON)
+            JSON
+            )
         ->when()
             ->post('/api/users')
         ->then()
             ->statusCode(201)
             ->contentType(ApiTestCase::JSON_TYPE)
-            ->body('username', $username)
-            ->body('password', $password)
+            ->body('id', self::uuid())
+            ->body('username', self::is('Username'))
+            ->body('about', self::is('About Username'))
         ;
     }
 }

@@ -17,8 +17,9 @@ class RegisterApi
     {
         return new JsonResponse(
             [
+                'id' => 'd9d9d21f-ece4-4f77-a763-904637b30ef6',
                 'username' => 'Username',
-                'password' => 'Password',
+                'about' => 'About Username',
             ],
             201, [
                 'Content-Type' => 'application/json',
