@@ -19,4 +19,8 @@ the Symfony Client that simulates HTTP calls.
 - Hamcrest: I've discovered this library by read the book "Growing Object-Oriented Software
 Guided By Test" but here is the first time I'm actually using it. I don't want yet to
 install the PHP version, I thought that for now I'll just create callable "matcher"
-to be used in 
+to be used in my `Then` object to perform needed assertions.
+- I cannot create a Mock from a final class. I've discovered that Prophecy is using
+Inheritance to be able to override concrete Object methods, does that mean we should
+probably only Mock interfaces? So that it won't force us to allow our services to be
+overridden by Inheritance as it would make behaviour more unpredictable.
