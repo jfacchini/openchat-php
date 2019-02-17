@@ -33,6 +33,8 @@ class UsersApi
     {
         $registrationData = $this->registrationDataFrom($request);
 
+        // In a CQRS manner I would rename `createUser` to `register` and create a new `UserId`
+        // but should UserId be part of the RegistrationData? or should it be a second argument?
         $user = $this->userService->createUser($registrationData);
 
         return new JsonResponse(

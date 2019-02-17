@@ -2,7 +2,6 @@
 
 namespace App\Tests\RestTestCase;
 
-use App\Tests\RestTestCase\Then;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
