@@ -2,7 +2,6 @@
 
 namespace App\Tests\RestTestCase;
 
-use App\Tests\RestTestCase\Given;
 use PHPUnit\Framework\Assert;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -18,7 +17,7 @@ class ApiTestCase extends WebTestCase
 
     public static function is($expected): callable
     {
-        return function($value) use ($expected) {
+        return function ($value) use ($expected) {
             if (is_object($value) || is_callable($value)) {
                 Assert::assertEquals($expected, $value);
             } else {
