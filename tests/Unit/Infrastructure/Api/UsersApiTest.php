@@ -4,6 +4,7 @@ namespace App\Tests\Unit\Infrastructure\Api;
 
 use App\Domain\Users\RegistrationData;
 use App\Domain\Users\User;
+use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserService;
 use App\Infrastructure\Api\UsersApi;
 use App\Tests\Fixtures\UserBuilder;
@@ -11,6 +12,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class UsersApiTest extends TestCase
 {
@@ -111,5 +113,20 @@ final class UsersApiTest extends TestCase
             sprintf('{"id":"%s","username":"%s","about":"%s"}', $this->id, $this->username, $this->about),
             $response->getContent(),
         );
+    }
+
+    /**
+     * @test
+     */
+    public function returns_an_error_when_creating_a_user_with_an_existing_username(): void
+    {
+        $this->userServiceProphet->createUser($this->registrationData)->willThrow(
+            new UsernameAlreadyInUseException()
+        );
+
+        $response = $this->userApi->createUser($this->request);
+
+        Assert::assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+        Assert::assertSame('{"message":"Username already in use."}', $response->getContent());
     }
 }

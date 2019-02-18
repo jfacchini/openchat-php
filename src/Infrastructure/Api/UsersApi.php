@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Api;
 
 use App\Domain\Users\RegistrationData;
+use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserService;
 use App\Infrastructure\Normalizers\UserNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,15 +34,24 @@ class UsersApi
     {
         $registrationData = $this->registrationDataFrom($request);
 
-        // In a CQRS manner I would rename `createUser` to `register` and create a new `UserId`
-        // but should UserId be part of the RegistrationData? or should it be a second argument?
-        $user = $this->userService->createUser($registrationData);
+        try {
+            // In a CQRS manner I would rename `createUser` to `register` and create a new `UserId`
+            // but should UserId be part of the RegistrationData? or should it be a second argument?
+            $user = $this->userService->createUser($registrationData);
 
-        return new JsonResponse(
-            // Normalizers will be useful to be used with Symfony Serializer component.
-            UserNormalizer::normalize($user),
-            Response::HTTP_CREATED,
-        );
+            return new JsonResponse(
+                // Normalizers will be useful to be used with Symfony Serializer component.
+                UserNormalizer::normalize($user),
+                Response::HTTP_CREATED,
+            );
+        } catch (UsernameAlreadyInUseException $e) {
+            return new JsonResponse(
+                [
+                    'message' => 'Username already in use.',
+                ],
+                Response::HTTP_BAD_REQUEST,
+            );
+        }
     }
 
     private function registrationDataFrom(Request $request): RegistrationData
