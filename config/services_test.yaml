@@ -1,0 +1,2 @@
+parameters:
+    users_db_filepath: '%kernel.root_dir%/../var/db/test/users.json'

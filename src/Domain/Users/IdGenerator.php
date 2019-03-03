@@ -2,10 +2,12 @@
 
 namespace App\Domain\Users;
 
+use Ramsey\Uuid\Uuid;
+
 class IdGenerator
 {
     public function next(): string
     {
-        throw new \RuntimeException('Not Implemented.');
+        return Uuid::uuid4()->toString();
     }
 }

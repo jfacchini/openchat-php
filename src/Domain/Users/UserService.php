@@ -18,9 +18,9 @@ class UserService
     {
         // UserRepository should be an interface in order to inject a concrete implementation
         // that can be implemented InMemory, File, Database, etc...
-        $this->idGenerator = $idGenerator;
-        // Should IdGenerator be the same? We could potentially wrap a library that generates UUID.
         $this->userRepository = $userRepository;
+        // Should IdGenerator be the same? We could potentially wrap a library that generates UUID.
+        $this->idGenerator = $idGenerator;
     }
 
     public function createUser(RegistrationData $registrationData): User
