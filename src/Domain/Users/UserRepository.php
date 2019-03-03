@@ -33,7 +33,7 @@ class UserRepository
     {
         $this->data[$user->id()] = $user;
 
-        file_put_contents($this->filePath, json_encode(array_map([$this, 'normalise'], $this->data)));
+        file_put_contents($this->filePath, json_encode(array_map([$this, 'normalise'], $this->data), JSON_PRETTY_PRINT));
     }
 
     public function isUsernameTaken(string $username): bool
