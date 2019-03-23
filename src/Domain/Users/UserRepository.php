@@ -54,6 +54,14 @@ class UserRepository
         return $this->data[$id];
     }
 
+    /**
+     * @return User[]
+     */
+    public function all(): array
+    {
+        return $this->data;
+    }
+
     private function normalise(User $user): array
     {
         $reflect = new ReflectionClass(User::class);

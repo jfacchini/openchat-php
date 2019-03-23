@@ -65,7 +65,7 @@ class UsersApiTest extends ApiTestCase
         ApiAssert::assertStatusCode(Response::HTTP_OK, $response);
         ApiAssert::assertContentType('application/json', $response);
 
-        $usersAsArray = json_decode($response->getContent());
+        $usersAsArray = json_decode($response->getContent(), true);
 
         array_walk($users, function (User $user) use ($usersAsArray) {
             Assert::assertContains(UserNormalizer::normalize($user), $usersAsArray);

@@ -48,6 +48,6 @@ class UserService
      */
     public function allUsers(): array
     {
-        throw new \Exception('Not implemented');
+        return $this->userRepository->all();
     }
 }

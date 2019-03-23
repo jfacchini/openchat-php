@@ -8,6 +8,7 @@ use App\Domain\Users\User;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserRepository;
 use App\Domain\Users\UserService;
+use App\Tests\Fixtures\UserBuilder;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -103,5 +104,21 @@ class UserServiceTest extends TestCase
         $this->expectException(UsernameAlreadyInUseException::class);
 
         $this->userService->createUser($this->registrationData);
+    }
+
+    /**
+     * @test
+     */
+    public function returns_all_users(): void
+    {
+        $users = [
+            $this->user,
+            (new UserBuilder())->withUsername('User2')->withId('a95983a4-cbbe-4652-bf38-71ad23f18c06')->build(),
+        ];
+        $this->userRepositoryProphet->all()->willReturn($users);
+
+        $foundUsers = $this->userService->allUsers();
+
+        Assert::assertEquals($users, $foundUsers);
     }
 }
