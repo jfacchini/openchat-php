@@ -5,6 +5,7 @@ namespace App\Tests\RestTestCase;
 use PHPUnit\Framework\Assert;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiTestCase extends WebTestCase
 {
@@ -31,5 +32,20 @@ class ApiTestCase extends WebTestCase
         return function (string $uuid) {
             Assert::assertTrue(Uuid::isValid($uuid), "Expected a valid UUID. Got '$uuid'");
         };
+    }
+
+    public static function when(): When
+    {
+        return new When(static::createClient(), '');
+    }
+
+    protected function setUp()
+    {
+        $container = static::bootKernel([])->getContainer();
+
+        $filePath = $container->getParameter('users_db_filepath');
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 }

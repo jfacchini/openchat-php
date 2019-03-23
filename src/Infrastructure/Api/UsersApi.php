@@ -66,4 +66,14 @@ class UsersApi
             $body->about ?? '',
         );
     }
+
+    /**
+     * @Route(methods={"GET"}, name="all_users", path="/api/users")
+     *
+     * @return Response
+     */
+    public function allUsers(): Response
+    {
+        return new JsonResponse([]);
+    }
 }

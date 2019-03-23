@@ -1,2 +1,7 @@
 parameters:
     users_db_filepath: '%kernel.root_dir%/../var/db/test/users.json'
+
+services:
+    test.user_repository:
+        alias: App\Domain\Users\UserRepository
+        public: true

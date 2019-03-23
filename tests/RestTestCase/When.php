@@ -38,12 +38,26 @@ class When
             [],
             [],
             [],
-            $this->body
+            $this->body,
         );
 
         $this->response = $this->client->getResponse();
 
         return $this;
+    }
+
+    public function get(string $uri): Response
+    {
+        $this->client->request(
+            Request::METHOD_GET,
+            $uri,
+            [],
+            [],
+            [],
+            null,
+        );
+
+        return $this->client->getResponse();
     }
 
     public function then(): Then

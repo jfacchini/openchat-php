@@ -6,16 +6,6 @@ use App\Tests\RestTestCase\ApiTestCase;
 
 class RegisterApiTest extends ApiTestCase
 {
-    protected function setUp()
-    {
-        $container = static::bootKernel([])->getContainer();
-
-        $filePath = $container->getParameter('users_db_filepath');
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }
-    }
-
     /**
      * @test
      */
