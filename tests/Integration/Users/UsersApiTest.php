@@ -28,7 +28,7 @@ class UsersApiTest extends ApiTestCase
      */
     private $user2;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -48,14 +48,14 @@ class UsersApiTest extends ApiTestCase
 
         $response = self::when()->get('/api/users');
 
-        $this->assertAllUsersAreReturned($response, $this->user1, $this->user2);
+        self::assertAllUsersAreReturned($response, $this->user1, $this->user2);
     }
 
     /**
      * @param Response $response
      * @param User[]   $users
      */
-    private function assertAllUsersAreReturned(Response $response, ...$users): void
+    private static function assertAllUsersAreReturned(Response $response, ...$users): void
     {
         ApiAssert::assertStatusCode(Response::HTTP_OK, $response);
         ApiAssert::assertContentType('application/json', $response);

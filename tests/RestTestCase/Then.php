@@ -19,22 +19,14 @@ class Then
 
     public function statusCode(int $statusCode): self
     {
-        Assert::assertSame(
-            $statusCode,
-            $this->response->getStatusCode(),
-            sprintf('Wrong status code. Body: %s', $this->response->getContent()),
-        );
+        ApiAssert::assertStatusCode($statusCode, $this->response);
 
         return $this;
     }
 
     public function contentType(string $type): self
     {
-        Assert::assertSame(
-            $type,
-            $this->response->headers->get('Content-Type'),
-            'Wrong content type.',
-        );
+        ApiAssert::assertContentType($type, $this->response);
 
         return $this;
     }

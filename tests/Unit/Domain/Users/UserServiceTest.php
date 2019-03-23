@@ -60,7 +60,7 @@ class UserServiceTest extends TestCase
      */
     private $userService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->uuid = 'aab1abc3-c3dd-46eb-9e10-d02c1f6c623e';
         $this->username = 'Username';
@@ -70,13 +70,15 @@ class UserServiceTest extends TestCase
         $this->user = new User($this->uuid, $this->username, $this->password, $this->about);
 
         $this->idGeneratorProphet = $this->prophesize(IdGenerator::class);
+        /** @var IdGenerator $idGenerator */
+        $idGenerator = $this->idGeneratorProphet->reveal();
+
         $this->userRepositoryProphet = $this->prophesize(UserRepository::class);
         $this->userRepositoryProphet->isUsernameTaken(Argument::cetera())->willReturn(false);
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->userRepositoryProphet->reveal();
 
-        $this->userService = new UserService(
-            $this->idGeneratorProphet->reveal(),
-            $this->userRepositoryProphet->reveal(),
-        );
+        $this->userService = new UserService($idGenerator, $userRepository);
     }
 
     /**

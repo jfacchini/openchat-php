@@ -88,8 +88,10 @@ final class UsersApiTest extends TestCase
 
         $this->userServiceProphet = $this->prophesize(UserService::class);
         $this->userServiceProphet->createUser($this->registrationData)->willReturn($this->user);
+        /** @var UserService $userService */
+        $userService = $this->userServiceProphet->reveal();
 
-        $this->userApi = new UsersApi($this->userServiceProphet->reveal());
+        $this->userApi = new UsersApi($userService);
     }
 
     /**

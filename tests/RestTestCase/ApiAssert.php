@@ -13,7 +13,13 @@ abstract class ApiAssert
      */
     public static function assertContentType(string $expected, Response $response): void
     {
-        Assert::assertSame($expected, $response->headers->get('Content-Type'));
+        $actual = $response->headers->get('Content-Type');
+
+        Assert::assertSame($expected, $actual, sprintf(
+            'Expected Response Content-Type to be "%s", but got "%s".',
+            $expected,
+            $actual,
+        ));
     }
 
     /**
@@ -22,10 +28,12 @@ abstract class ApiAssert
      */
     public static function assertStatusCode(int $expected, Response $response): void
     {
-        Assert::assertSame($expected, $response->getStatusCode(), sprintf(
+        $actual = $response->getStatusCode();
+
+        Assert::assertSame($expected, $actual, sprintf(
             'Expected status code "%s" but got "%s" with body "%s"',
             $expected,
-            $response->getStatusCode(),
+            $actual,
             $response->getContent(),
         ));
     }

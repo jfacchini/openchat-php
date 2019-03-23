@@ -30,9 +30,13 @@ class UserRepositoryTest extends TestCase
      */
     private $user2;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->usersFilePath = __DIR__.'/users.json';
+        if (file_exists($this->usersFilePath)) {
+            unlink($this->usersFilePath);
+        }
+
         $this->userRepository = new UserRepository($this->usersFilePath);
 
         $this->user1 = (new UserBuilder())->withUsername('User1')->build();
@@ -44,9 +48,9 @@ class UserRepositoryTest extends TestCase
      */
     public function saves_data_in_a_file(): void
     {
-        $newRepository = new UserRepository($this->usersFilePath);
-
         $this->userRepository->add($this->user1);
+
+        $newRepository = new UserRepository($this->usersFilePath);
         $user = $newRepository->get($this->user1->id());
 
         Assert::assertEquals($this->user1, $user);

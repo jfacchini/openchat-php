@@ -11,6 +11,16 @@ class ApiTestCase extends WebTestCase
 {
     const JSON_TYPE = 'application/json';
 
+    protected function setUp(): void
+    {
+        $container = static::bootKernel([])->getContainer();
+
+        $filePath = $container->getParameter('users_db_filepath');
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
+
     public static function given(): Given
     {
         return new Given(static::createClient());
@@ -37,15 +47,5 @@ class ApiTestCase extends WebTestCase
     public static function when(): When
     {
         return new When(static::createClient(), '');
-    }
-
-    protected function setUp()
-    {
-        $container = static::bootKernel([])->getContainer();
-
-        $filePath = $container->getParameter('users_db_filepath');
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }
     }
 }
