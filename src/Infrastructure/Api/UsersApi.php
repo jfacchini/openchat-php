@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Api;
 
 use App\Domain\Users\RegistrationData;
+use App\Domain\Users\User;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserService;
 use App\Infrastructure\Normalizers\UserNormalizer;
@@ -74,6 +75,10 @@ class UsersApi
      */
     public function allUsers(): Response
     {
-        return new JsonResponse([]);
+        $users = $this->userService->allUsers();
+
+        return new JsonResponse(array_map(function (User $user) {
+            return UserNormalizer::normalize($user);
+        }, $users));
     }
 }

@@ -40,4 +40,14 @@ class UserService
 
         return $user;
     }
+
+    /**
+     * @return User[]
+     *
+     * @throws \Exception
+     */
+    public function allUsers(): array
+    {
+        throw new \Exception('Not implemented');
+    }
 }

@@ -34,8 +34,13 @@ class UsersApiTest extends ApiTestCase
 
         $this->userRepository = static::$kernel->getContainer()->get('test.user_repository');
 
-        $this->user1 = (new UserBuilder())->withUsername('User1')->build();
-        $this->user2 = (new UserBuilder())->withUsername('User2')->build();
+        $this->user1 = (new UserBuilder())
+            ->withUsername('User1')
+            ->build();
+        $this->user2 = (new UserBuilder())
+            ->withId('a95983a4-cbbe-4652-bf38-71ad23f18c06')
+            ->withUsername('User2')
+            ->build();
     }
 
     /**
