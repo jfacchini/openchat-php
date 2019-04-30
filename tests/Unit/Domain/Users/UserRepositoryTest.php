@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Domain\Users;
 
 use App\Domain\Users\User;
-use App\Domain\Users\UserRepository;
+use App\Infrastructure\Repository\FileUserRepository;
 use App\Tests\Fixtures\UserBuilder;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class UserRepositoryTest extends TestCase
 {
     /**
-     * @var UserRepository
+     * @var FileUserRepository
      */
     private $userRepository;
 
@@ -37,7 +37,7 @@ class UserRepositoryTest extends TestCase
             unlink($this->usersFilePath);
         }
 
-        $this->userRepository = new UserRepository($this->usersFilePath);
+        $this->userRepository = new FileUserRepository($this->usersFilePath);
 
         $this->user1 = (new UserBuilder())->withUsername('User1')->build();
         $this->user2 = (new UserBuilder())->withUsername('User2')->build();
@@ -50,7 +50,7 @@ class UserRepositoryTest extends TestCase
     {
         $this->userRepository->add($this->user1);
 
-        $newRepository = new UserRepository($this->usersFilePath);
+        $newRepository = new FileUserRepository($this->usersFilePath);
         $user = $newRepository->get($this->user1->id());
 
         Assert::assertEquals($this->user1, $user);

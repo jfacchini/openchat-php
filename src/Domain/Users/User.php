@@ -2,7 +2,7 @@
 
 namespace App\Domain\Users;
 
-class User
+final class User
 {
     /**
      * @var string

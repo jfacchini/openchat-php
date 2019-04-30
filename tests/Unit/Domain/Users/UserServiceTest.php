@@ -7,6 +7,7 @@ use App\Domain\Users\RegistrationData;
 use App\Domain\Users\User;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserRepository;
+use App\Infrastructure\Repository\FileUserRepository;
 use App\Domain\Users\UserService;
 use App\Tests\Fixtures\UserBuilder;
 use PHPUnit\Framework\Assert;
@@ -52,7 +53,7 @@ class UserServiceTest extends TestCase
     private $idGeneratorProphet;
 
     /**
-     * @var UserRepository|ObjectProphecy
+     * @var FileUserRepository|ObjectProphecy
      */
     private $userRepositoryProphet;
 
@@ -76,7 +77,7 @@ class UserServiceTest extends TestCase
 
         $this->userRepositoryProphet = $this->prophesize(UserRepository::class);
         $this->userRepositoryProphet->isUsernameTaken(Argument::cetera())->willReturn(false);
-        /** @var UserRepository $userRepository */
+        /** @var FileUserRepository $userRepository */
         $userRepository = $this->userRepositoryProphet->reveal();
 
         $this->userService = new UserService($idGenerator, $userRepository);

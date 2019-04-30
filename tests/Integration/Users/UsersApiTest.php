@@ -3,7 +3,7 @@
 namespace App\Tests\Integration\Users;
 
 use App\Domain\Users\User;
-use App\Domain\Users\UserRepository;
+use App\Infrastructure\Repository\FileUserRepository;
 use App\Infrastructure\Normalizers\UserNormalizer;
 use App\Tests\Fixtures\UserBuilder;
 use App\Tests\RestTestCase\ApiAssert;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UsersApiTest extends ApiTestCase
 {
     /**
-     * @var UserRepository
+     * @var FileUserRepository
      */
     private $userRepository;
 

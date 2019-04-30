@@ -2,6 +2,8 @@
 
 namespace App\Domain\Users;
 
+use Exception;
+
 class UserService
 {
     /**
@@ -16,10 +18,8 @@ class UserService
 
     public function __construct(IdGenerator $idGenerator, UserRepository $userRepository)
     {
-        // UserRepository should be an interface in order to inject a concrete implementation
-        // that can be implemented InMemory, File, Database, etc...
         $this->userRepository = $userRepository;
-        // Should IdGenerator be the same? We could potentially wrap a library that generates UUID.
+        // Should IdGenerator an interface as well? We could potentially wrap a library that generates UUID.
         $this->idGenerator = $idGenerator;
     }
 
@@ -44,7 +44,7 @@ class UserService
     /**
      * @return User[]
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function allUsers(): array
     {

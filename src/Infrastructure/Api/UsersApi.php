@@ -7,6 +7,7 @@ use App\Domain\Users\User;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserService;
 use App\Infrastructure\Normalizers\UserNormalizer;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,6 +73,8 @@ class UsersApi
      * @Route(methods={"GET"}, name="all_users", path="/api/users")
      *
      * @return Response
+     *
+     * @throws Exception
      */
     public function allUsers(): Response
     {
