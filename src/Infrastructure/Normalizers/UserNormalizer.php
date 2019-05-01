@@ -9,7 +9,7 @@ class UserNormalizer
     public static function normalize(User $user): array
     {
         return [
-            'id' => $user->id(),
+            'id' => $user->id()->toString(),
             'username' => $user->username(),
             'about' => $user->about(),
         ];

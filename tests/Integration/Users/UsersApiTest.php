@@ -3,6 +3,7 @@
 namespace App\Tests\Integration\Users;
 
 use App\Domain\Users\User;
+use App\Domain\Users\UserId;
 use App\Infrastructure\Repository\FileUserRepository;
 use App\Infrastructure\Normalizers\UserNormalizer;
 use App\Tests\Fixtures\UserBuilder;
@@ -38,7 +39,7 @@ class UsersApiTest extends ApiTestCase
             ->withUsername('User1')
             ->build();
         $this->user2 = (new UserBuilder())
-            ->withId('a95983a4-cbbe-4652-bf38-71ad23f18c06')
+            ->withId(UserId::new('a95983a4-cbbe-4652-bf38-71ad23f18c06'))
             ->withUsername('User2')
             ->build();
     }
@@ -72,9 +73,6 @@ class UsersApiTest extends ApiTestCase
         });
     }
 
-    /**
-     * @param User $user
-     */
     private function register(User $user): void
     {
         $this->userRepository->add($user);

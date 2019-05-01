@@ -4,6 +4,7 @@ namespace App\Tests\Unit\Infrastructure\Api;
 
 use App\Domain\Users\RegistrationData;
 use App\Domain\Users\User;
+use App\Domain\Users\UserId;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserService;
 use App\Infrastructure\Api\UsersApi;
@@ -65,7 +66,7 @@ final class UsersApiTest extends TestCase
     {
         $this->registrationData = new RegistrationData($this->username, $this->password, $this->about);
         $this->user = (new UserBuilder())
-            ->withId($this->id)
+            ->withId(UserId::new($this->id))
             ->withUsername($this->username)
             ->withPassword($this->password)
             ->withAbout($this->about)
@@ -138,7 +139,10 @@ final class UsersApiTest extends TestCase
     public function returns_all_users(): void
     {
         $user = (new UserBuilder())->withUsername('User1')->build();
-        $user2 = (new UserBuilder())->withUsername('User2')->withId('a95983a4-cbbe-4652-bf38-71ad23f18c06')->build();
+        $user2 = (new UserBuilder())
+            ->withUsername('User2')
+            ->withId(UserId::new('a95983a4-cbbe-4652-bf38-71ad23f18c06'))
+            ->build();
         $this->userServiceProphet->allUsers()->willReturn([
             $user,
             $user2,
@@ -147,8 +151,8 @@ final class UsersApiTest extends TestCase
         $response = $this->userApi->allUsers();
 
         $expectedUsers = '['.
-            '{"id":"'.$user->id().'","username":"'.$user->username().'","about":"'.$user->about().'"},'.
-            '{"id":"'.$user2->id().'","username":"'.$user2->username().'","about":"'.$user2->about().'"}'.
+            '{"id":"'.$user->id()->toString().'","username":"'.$user->username().'","about":"'.$user->about().'"},'.
+            '{"id":"'.$user2->id()->toString().'","username":"'.$user2->username().'","about":"'.$user2->about().'"}'.
         ']';
         Assert::assertSame(Response::HTTP_OK, $response->getStatusCode());
         Assert::assertSame($expectedUsers, $response->getContent());

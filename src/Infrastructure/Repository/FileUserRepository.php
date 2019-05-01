@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Users\User;
+use App\Domain\Users\UserId;
 use App\Domain\Users\UserRepository;
 use ReflectionClass;
 use ReflectionProperty;
@@ -33,7 +34,7 @@ final class FileUserRepository implements UserRepository
 
     public function add(User $user): void
     {
-        $this->data[$user->id()] = $user;
+        $this->data[$user->id()->toString()] = $user;
 
         file_put_contents($this->filePath, json_encode(array_map([$this, 'normalise'], $this->data), JSON_PRETTY_PRINT));
     }
@@ -47,13 +48,13 @@ final class FileUserRepository implements UserRepository
         return count($users) > 0;
     }
 
-    public function get(string $id): User
+    public function get(UserId $id): User
     {
-        if (!isset($this->data[$id])) {
+        if (!isset($this->data[$id->toString()])) {
             throw new RuntimeException("No User with id \"$id\" was found.");
         }
 
-        return $this->data[$id];
+        return $this->data[$id->toString()];
     }
 
     public function all(): array

@@ -24,17 +24,17 @@ final class User
      */
     private $about;
 
-    public function __construct(string $id, string $username, string $password, string $about)
+    public function __construct(UserId $id, string $username, string $password, string $about)
     {
         $this->username = $username;
         $this->password = $password;
         $this->about = $about;
-        $this->id = $id;
+        $this->id = $id->toString();
     }
 
-    public function id(): string
+    public function id(): UserId
     {
-        return $this->id;
+        return UserId::new($this->id);
     }
 
     public function username(): string

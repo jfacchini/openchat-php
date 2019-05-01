@@ -2,12 +2,12 @@
 
 namespace App\Domain\Users;
 
-use Ramsey\Uuid\Uuid;
+use App\Domain\Uuid;
 
-class IdGenerator
+final class IdGenerator implements UserIdGenerator
 {
-    public function next(): string
+    public function next(): UserId
     {
-        return Uuid::uuid4()->toString();
+        return UserId::new(Uuid::next()->toString());
     }
 }

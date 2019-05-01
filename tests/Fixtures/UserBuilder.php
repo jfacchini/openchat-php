@@ -3,6 +3,7 @@
 namespace App\Tests\Fixtures;
 
 use App\Domain\Users\User;
+use App\Domain\Users\UserId;
 
 class UserBuilder implements Builder
 {
@@ -28,7 +29,7 @@ class UserBuilder implements Builder
 
     public function __construct()
     {
-        $this->id = '4c81cecc-03f3-4714-8f7b-2db5e68f1c1d';
+        $this->id = UserId::new('4c81cecc-03f3-4714-8f7b-2db5e68f1c1d');
         $this->username = 'Username';
         $this->password = 'Password';
         $this->about = 'About Username';
@@ -60,7 +61,7 @@ class UserBuilder implements Builder
         return $this;
     }
 
-    public function withId(string $id): self
+    public function withId(UserId $id): self
     {
         $this->id = $id;
 

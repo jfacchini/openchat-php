@@ -23,11 +23,11 @@ interface UserRepository
     /**
      * Retrieves a User from its identifier.
      *
-     * @param string $id
+     * @param UserId $id
      *
      * @return User
      */
-    public function get(string $id): User;
+    public function get(UserId $id): User;
 
     /**
      * Retieves all existing Users within the repository.

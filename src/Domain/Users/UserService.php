@@ -16,10 +16,9 @@ class UserService
      */
     private $userRepository;
 
-    public function __construct(IdGenerator $idGenerator, UserRepository $userRepository)
+    public function __construct(UserIdGenerator $idGenerator, UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        // Should IdGenerator an interface as well? We could potentially wrap a library that generates UUID.
         $this->idGenerator = $idGenerator;
     }
 

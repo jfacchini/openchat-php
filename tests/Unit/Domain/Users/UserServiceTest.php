@@ -5,6 +5,8 @@ namespace App\Tests\Unit\Domain\Users;
 use App\Domain\Users\IdGenerator;
 use App\Domain\Users\RegistrationData;
 use App\Domain\Users\User;
+use App\Domain\Users\UserId;
+use App\Domain\Users\UserIdGenerator;
 use App\Domain\Users\UsernameAlreadyInUseException;
 use App\Domain\Users\UserRepository;
 use App\Infrastructure\Repository\FileUserRepository;
@@ -50,7 +52,7 @@ class UserServiceTest extends TestCase
     /**
      * @var IdGenerator|ObjectProphecy
      */
-    private $idGeneratorProphet;
+    private $userIdGenerator;
 
     /**
      * @var FileUserRepository|ObjectProphecy
@@ -64,22 +66,22 @@ class UserServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->uuid = 'aab1abc3-c3dd-46eb-9e10-d02c1f6c623e';
+        $this->uuid = UserId::new('aab1abc3-c3dd-46eb-9e10-d02c1f6c623e');
         $this->username = 'Username';
         $this->password = 'Password';
         $this->about = 'About Username';
         $this->registrationData = new RegistrationData($this->username, $this->password, $this->about);
         $this->user = new User($this->uuid, $this->username, $this->password, $this->about);
 
-        $this->idGeneratorProphet = $this->prophesize(IdGenerator::class);
-        /** @var IdGenerator $idGenerator */
-        $idGenerator = $this->idGeneratorProphet->reveal();
+        $this->userIdGenerator = $this->prophesize(UserIdGenerator::class);
 
         $this->userRepositoryProphet = $this->prophesize(UserRepository::class);
         $this->userRepositoryProphet->isUsernameTaken(Argument::cetera())->willReturn(false);
+
+        /** @var IdGenerator $idGenerator */
+        $idGenerator = $this->userIdGenerator->reveal();
         /** @var FileUserRepository $userRepository */
         $userRepository = $this->userRepositoryProphet->reveal();
-
         $this->userService = new UserService($idGenerator, $userRepository);
     }
 
@@ -88,7 +90,7 @@ class UserServiceTest extends TestCase
      */
     public function creates_a_user(): void
     {
-        $this->idGeneratorProphet->next()->willReturn($this->uuid);
+        $this->userIdGenerator->next()->willReturn($this->uuid);
         $this->userRepositoryProphet->add($this->user)->shouldBeCalled();
 
         $newUser = $this->userService->createUser($this->registrationData);
@@ -114,7 +116,10 @@ class UserServiceTest extends TestCase
     {
         $users = [
             $this->user,
-            (new UserBuilder())->withUsername('User2')->withId('a95983a4-cbbe-4652-bf38-71ad23f18c06')->build(),
+            (new UserBuilder())
+                ->withUsername('User2')
+                ->withId(UserId::new('a95983a4-cbbe-4652-bf38-71ad23f18c06'))
+                ->build(),
         ];
         $this->userRepositoryProphet->all()->willReturn($users);
 
