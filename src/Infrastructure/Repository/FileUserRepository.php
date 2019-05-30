@@ -3,8 +3,10 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Users\User;
+use App\Domain\Users\UserCredentials;
 use App\Domain\Users\UserId;
 use App\Domain\Users\UserRepository;
+use ocramius\util\Optional;
 use ReflectionClass;
 use ReflectionProperty;
 use RuntimeException;
@@ -55,6 +57,12 @@ final class FileUserRepository implements UserRepository
         }
 
         return $this->data[$id->toString()];
+    }
+
+    public function userFor(UserCredentials $credentials): Optional
+    {
+        // TODO: Implement userFor() method.
+        throw new \Exception('Not implemented');
     }
 
     public function all(): array
