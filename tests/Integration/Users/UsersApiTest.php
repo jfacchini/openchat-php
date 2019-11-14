@@ -4,13 +4,14 @@ namespace App\Tests\Integration\Users;
 
 use App\Domain\Users\User;
 use App\Domain\Users\UserId;
-use App\Infrastructure\Repository\FileUserRepository;
 use App\Infrastructure\Normalizers\UserNormalizer;
+use App\Infrastructure\Repository\FileUserRepository;
 use App\Tests\Fixtures\UserBuilder;
 use App\Tests\RestTestCase\ApiAssert;
 use App\Tests\RestTestCase\ApiTestCase;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
+use function App\Tests\RestTestCase\when;
 
 class UsersApiTest extends ApiTestCase
 {
@@ -52,14 +53,14 @@ class UsersApiTest extends ApiTestCase
         $this->register($this->user1);
         $this->register($this->user2);
 
-        $response = self::when()->get('/api/users');
+        $response = when()->get('/api/users');
 
         self::assertAllUsersAreReturned($response, $this->user1, $this->user2);
     }
 
     /**
      * @param Response $response
-     * @param User[]   $users
+     * @param User[] $users
      */
     private static function assertAllUsersAreReturned(Response $response, ...$users): void
     {

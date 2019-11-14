@@ -7,6 +7,8 @@ use App\Domain\Users\UserId;
 use App\Infrastructure\Repository\FileUserRepository;
 use App\Tests\Fixtures\UserBuilder;
 use App\Tests\RestTestCase\ApiTestCase;
+use function App\Tests\RestTestCase\given;
+use function App\Tests\RestTestCase\is;
 
 class LoginApiTest extends ApiTestCase
 {
@@ -38,7 +40,7 @@ class LoginApiTest extends ApiTestCase
      */
     public function perform_login(): void
     {
-        self::given()
+        given()
             ->body(<<<JSON
             {
               "username": "{$this->aUser->username()}",
@@ -51,9 +53,9 @@ class LoginApiTest extends ApiTestCase
         ->then()
             ->statusCode(200)
             ->contentType(ApiTestCase::JSON_TYPE)
-            ->body('id', self::is($this->aUser->id()->toString()))
-            ->body('username', self::is($this->aUser->username()))
-            ->body('about', self::is($this->aUser->about()))
+            ->body('id', is($this->aUser->id()->toString()))
+            ->body('username', is($this->aUser->username()))
+            ->body('about', is($this->aUser->about()))
         ;
     }
 }

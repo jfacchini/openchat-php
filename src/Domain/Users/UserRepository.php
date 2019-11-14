@@ -41,7 +41,7 @@ interface UserRepository
     public function userFor(UserCredentials $credentials): Optional;
 
     /**
-     * Retieves all existing Users within the repository.
+     * Retrieves all existing Users within the repository.
      *
      * @return User[]
      */

@@ -5,7 +5,6 @@ namespace App\Tests\RestTestCase;
 use PHPUnit\Framework\Assert;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiTestCase extends WebTestCase
 {
@@ -26,6 +25,11 @@ class ApiTestCase extends WebTestCase
         return new Given(static::createClient());
     }
 
+    public static function when(): When
+    {
+        return new When(static::createClient(), '');
+    }
+
     public static function is($expected): callable
     {
         return function ($value) use ($expected) {
@@ -43,9 +47,24 @@ class ApiTestCase extends WebTestCase
             Assert::assertTrue(Uuid::isValid($uuid), "Expected a valid UUID. Got '$uuid'");
         };
     }
+}
 
-    public static function when(): When
-    {
-        return new When(static::createClient(), '');
-    }
+function given(): Given
+{
+    return ApiTestCase::given();
+}
+
+function when(): When
+{
+    return ApiTestCase::when();
+}
+
+function is($expected): callable
+{
+    return ApiTestCase::is($expected);
+}
+
+function uuid(): callable
+{
+    return ApiTestCase::uuid();
 }
