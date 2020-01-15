@@ -13,15 +13,9 @@ use RuntimeException;
 
 final class FileUserRepository implements UserRepository
 {
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
 
-    /**
-     * @var string
-     */
-    private $filePath;
+    private string $filePath;
 
     public function __construct(string $filePath)
     {

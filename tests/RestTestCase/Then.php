@@ -7,10 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Then
 {
-    /**
-     * @var Response
-     */
-    private $response;
+    private Response $response;
 
     public function __construct(Response $response)
     {

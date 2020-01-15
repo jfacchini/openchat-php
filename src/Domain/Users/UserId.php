@@ -14,7 +14,7 @@ final class UserId
      *
      * Would it be better here as string or as Uuid??
      */
-    private $id;
+    private string $id;
 
     // Private as this is a value object, we want to use named constructor
     // that we can simulate by using static functions.

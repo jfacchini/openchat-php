@@ -15,10 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersApi
 {
-    /**
-     * @var UserService
-     */
-    private $userService;
+    private UserService $userService;
 
     public function __construct(UserService $userService)
     {

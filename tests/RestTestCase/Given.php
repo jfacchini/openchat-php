@@ -2,21 +2,18 @@
 
 namespace App\Tests\RestTestCase;
 
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class Given
 {
-    /**
-     * @var Client
-     */
-    private $client;
+    private KernelBrowser $client;
 
     /**
      * @var string
      */
-    private $body;
+    private string $body;
 
-    public function __construct(Client $client)
+    public function __construct(KernelBrowser $client)
     {
         $this->client = $client;
         $this->body = '';

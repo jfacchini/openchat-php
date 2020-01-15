@@ -4,15 +4,19 @@ namespace App\Tests\RestTestCase;
 
 use PHPUnit\Framework\Assert;
 use Ramsey\Uuid\Uuid;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiTestCase extends WebTestCase
 {
     const JSON_TYPE = 'application/json';
 
+    private ?KernelBrowser $client;
+
     protected function setUp(): void
     {
-        $container = static::bootKernel([])->getContainer();
+        $this->client = static::createClient();
+        $container = static::$kernel->getContainer();
 
         $filePath = $container->getParameter('users_db_filepath');
         if (file_exists($filePath)) {
@@ -20,51 +24,39 @@ class ApiTestCase extends WebTestCase
         }
     }
 
-    public static function given(): Given
+    protected function tearDown(): void
     {
-        return new Given(static::createClient());
+        parent::tearDown();
+
+        $this->client = null;
     }
 
-    public static function when(): When
+
+    public function given(): Given
     {
-        return new When(static::createClient(), '');
+        return new Given($this->client);
     }
 
-    public static function is($expected): callable
+    public function when(): When
     {
-        return function ($value) use ($expected) {
-            if (is_object($value) || is_callable($value)) {
-                Assert::assertEquals($expected, $value);
-            } else {
-                Assert::assertSame($expected, $value);
-            }
-        };
+        return new When($this->client, '');
     }
-
-    public static function uuid(): callable
-    {
-        return function (string $uuid) {
-            Assert::assertTrue(Uuid::isValid($uuid), "Expected a valid UUID. Got '$uuid'");
-        };
-    }
-}
-
-function given(): Given
-{
-    return ApiTestCase::given();
-}
-
-function when(): When
-{
-    return ApiTestCase::when();
 }
 
 function is($expected): callable
 {
-    return ApiTestCase::is($expected);
+    return function ($value) use ($expected) {
+        if (is_object($value) || is_callable($value)) {
+            Assert::assertEquals($expected, $value);
+        } else {
+            Assert::assertSame($expected, $value);
+        }
+    };
 }
 
 function uuid(): callable
 {
-    return ApiTestCase::uuid();
+    return function (string $uuid) {
+        Assert::assertTrue(Uuid::isValid($uuid), "Expected a valid UUID. Got '$uuid'");
+    };
 }

@@ -17,50 +17,26 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class UsersApiTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $id = '69b843fb-766c-4467-8f0f-b9263d4fae58';
+    private string $id = '69b843fb-766c-4467-8f0f-b9263d4fae58';
 
-    /**
-     * @var string
-     */
-    private $username = 'Username';
+    private string $username = 'Username';
 
-    /**
-     * @var string
-     */
-    private $password = 'Password';
+    private string $password = 'Password';
 
-    /**
-     * @var string
-     */
-    private $about = 'About Username';
+    private string $about = 'About Username';
 
-    /**
-     * @var Request
-     */
-    private $request;
+    private Request $request;
 
-    /**
-     * @var RegistrationData
-     */
-    private $registrationData;
+    private RegistrationData $registrationData;
 
-    /**
-     * @var UsersApi
-     */
-    private $userApi;
+    private UsersApi $userApi;
 
     /**
      * @var UserService|ObjectProphecy
      */
     private $userServiceProphet;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     protected function setUp(): void
     {

@@ -10,25 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
-    /**
-     * @var FileUserRepository
-     */
-    private $userRepository;
+    private FileUserRepository $userRepository;
 
-    /**
-     * @var string
-     */
-    private $usersFilePath;
+    private string $usersFilePath;
 
-    /**
-     * @var User
-     */
-    private $user1;
+    private User $user1;
 
-    /**
-     * @var User
-     */
-    private $user2;
+    private User $user2;
 
     protected function setUp(): void
     {

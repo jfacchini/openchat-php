@@ -4,20 +4,11 @@ namespace App\Domain\Users;
 
 final class RegistrationData
 {
-    /**
-     * @var string
-     */
-    private $username;
+    private string $username;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $password;
 
-    /**
-     * @var string
-     */
-    private $about;
+    private string $about;
 
     public function __construct(string $username, string $password, string $about)
     {

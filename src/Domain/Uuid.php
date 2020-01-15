@@ -8,10 +8,7 @@ use Webmozart\Assert\Assert;
 
 class Uuid
 {
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     private function __construct()
     {

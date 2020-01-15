@@ -10,31 +10,23 @@ use App\Tests\Fixtures\UserBuilder;
 use ocramius\util\Optional;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\Request;
 
 class LoginApiTest extends TestCase
 {
-    /**
-     * @var LoginApi
-     */
-    private $loginApi;
+    private LoginApi $loginApi;
 
     /**
-     * @var UserRepository
+     * @var UserRepository|ObjectProphecy
      */
     private $userRepository;
 
-    /**
-     * @var UserCredentials
-     */
-    private $credentials;
+    private UserCredentials $credentials;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->user = (new UserBuilder())->build();
         $this->credentials = new UserCredentials($this->user->username(), 'password');
@@ -44,7 +36,9 @@ class LoginApiTest extends TestCase
             ->userFor($this->credentials)
             ->willReturn(Optional::of($this->user));
 
-        $this->loginApi = new LoginApi($this->userRepository->reveal());
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->userRepository->reveal();
+        $this->loginApi = new LoginApi($userRepository);
     }
 
     /**

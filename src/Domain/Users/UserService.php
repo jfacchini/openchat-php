@@ -6,15 +6,9 @@ use Exception;
 
 class UserService
 {
-    /**
-     * @var IdGenerator
-     */
-    private $idGenerator;
+    private UserIdGenerator $idGenerator;
 
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserIdGenerator $idGenerator, UserRepository $userRepository)
     {

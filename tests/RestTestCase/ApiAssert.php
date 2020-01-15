@@ -7,10 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class ApiAssert
 {
-    /**
-     * @param string   $expected
-     * @param Response $response
-     */
     public static function assertContentType(string $expected, Response $response): void
     {
         $actual = $response->headers->get('Content-Type');
@@ -22,10 +18,6 @@ abstract class ApiAssert
         ));
     }
 
-    /**
-     * @param int      $expected
-     * @param Response $response
-     */
     public static function assertStatusCode(int $expected, Response $response): void
     {
         $actual = $response->getStatusCode();

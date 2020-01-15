@@ -3,7 +3,6 @@
 namespace App\Tests\Integration\Users;
 
 use App\Tests\RestTestCase\ApiTestCase;
-use function App\Tests\RestTestCase\given;
 use function App\Tests\RestTestCase\is;
 use function App\Tests\RestTestCase\uuid;
 
@@ -14,7 +13,7 @@ class RegisterApiTest extends ApiTestCase
      */
     public function it_register_a_new_user(): void
     {
-        given()
+        $this->given()
             ->body(<<<JSON
             {
               "username": "Username",

@@ -4,25 +4,13 @@ namespace App\Domain\Users;
 
 final class User
 {
-    /**
-     * @var string
-     */
-    private $id;
+    private string $id;
 
-    /**
-     * @var string
-     */
-    private $username;
+    private string $username;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $password;
 
-    /**
-     * @var string
-     */
-    private $about;
+    private string $about;
 
     public function __construct(UserId $id, string $username, string $password, string $about)
     {

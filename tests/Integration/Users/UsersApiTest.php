@@ -11,24 +11,14 @@ use App\Tests\RestTestCase\ApiAssert;
 use App\Tests\RestTestCase\ApiTestCase;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
-use function App\Tests\RestTestCase\when;
 
 class UsersApiTest extends ApiTestCase
 {
-    /**
-     * @var FileUserRepository
-     */
-    private $userRepository;
+    private FileUserRepository $userRepository;
 
-    /**
-     * @var User
-     */
-    private $user1;
+    private User $user1;
 
-    /**
-     * @var User
-     */
-    private $user2;
+    private User $user2;
 
     protected function setUp(): void
     {
@@ -53,7 +43,7 @@ class UsersApiTest extends ApiTestCase
         $this->register($this->user1);
         $this->register($this->user2);
 
-        $response = when()->get('/api/users');
+        $response = $this->when()->get('/api/users');
 
         self::assertAllUsersAreReturned($response, $this->user1, $this->user2);
     }

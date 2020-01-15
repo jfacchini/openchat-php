@@ -19,35 +19,17 @@ use Prophecy\Prophecy\ObjectProphecy;
 
 class UserServiceTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $uuid;
+    private UserId $uuid;
 
-    /**
-     * @var string
-     */
-    private $username;
+    private string $username;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $password;
 
-    /**
-     * @var string
-     */
-    private $about;
+    private string $about;
 
-    /**
-     * @var RegistrationData
-     */
-    private $registrationData;
+    private RegistrationData $registrationData;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     /**
      * @var IdGenerator|ObjectProphecy
@@ -59,10 +41,7 @@ class UserServiceTest extends TestCase
      */
     private $userRepositoryProphet;
 
-    /**
-     * @var UserService
-     */
-    private $userService;
+    private UserService $userService;
 
     protected function setUp(): void
     {

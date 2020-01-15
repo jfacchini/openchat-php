@@ -11,10 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginApi
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {

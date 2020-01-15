@@ -7,25 +7,13 @@ use App\Domain\Users\UserId;
 
 class UserBuilder implements Builder
 {
-    /**
-     * @var string
-     */
-    private $id;
+    private UserId $id;
 
-    /**
-     * @var string
-     */
-    private $username;
+    private string $username;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $password;
 
-    /**
-     * @var string
-     */
-    private $about;
+    private string $about;
 
     public function __construct()
     {

@@ -2,29 +2,20 @@
 
 namespace App\Tests\RestTestCase;
 
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Assert\Assert;
 
 class When
 {
-    /**
-     * @var Client
-     */
-    private $client;
+    private KernelBrowser $client;
 
-    /**
-     * @var string
-     */
-    private $body;
+    private string $body;
 
-    /**
-     * @var Response
-     */
-    private $response;
+    private Response $response;
 
-    public function __construct(Client $client, string $body)
+    public function __construct(KernelBrowser $client, string $body)
     {
         $this->client = $client;
         $this->body = $body;
