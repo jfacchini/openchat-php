@@ -31,7 +31,6 @@ class ApiTestCase extends WebTestCase
         $this->client = null;
     }
 
-
     public function given(): Given
     {
         return new Given($this->client);

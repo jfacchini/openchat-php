@@ -24,10 +24,6 @@ class UsersApi
 
     /**
      * @Route(methods={"POST"}, name="register_user", path="/api/users")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function createUser(Request $request): Response
     {
@@ -68,8 +64,6 @@ class UsersApi
 
     /**
      * @Route(methods={"GET"}, name="all_users", path="/api/users")
-     *
-     * @return Response
      *
      * @throws Exception
      */

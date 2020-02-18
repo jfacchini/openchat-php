@@ -49,7 +49,6 @@ class UsersApiTest extends ApiTestCase
     }
 
     /**
-     * @param Response $response
      * @param User[] $users
      */
     private static function assertAllUsersAreReturned(Response $response, ...$users): void

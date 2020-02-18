@@ -5,6 +5,7 @@ namespace App\Infrastructure\Api;
 use App\Domain\Users\UserCredentials;
 use App\Domain\Users\UserRepository;
 use App\Infrastructure\Normalizers\UserNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +21,6 @@ class LoginApi
 
     /**
      * @Route(methods={"POST"}, name="user_login", path="/api/login")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function login(Request $request): Response
     {
@@ -34,8 +31,6 @@ class LoginApi
             $content['password'],
         ));
 
-        return new Response(json_encode(UserNormalizer::normalize($user->get())), Response::HTTP_OK, [
-            'Content-Type' => 'application/json',
-        ]);
+        return new JsonResponse(UserNormalizer::normalize($user->get()));
     }
 }
